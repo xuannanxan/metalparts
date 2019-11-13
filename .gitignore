@@ -1,0 +1,7 @@
+.vscode
+Pipfile.lock
+Pipfile
+__pycache__
+secure.py
+init_data.py
+uploads
