@@ -11,7 +11,7 @@ from . import home,seoData,cache,getWebTemplate,getCategory,getTemplates,getTag,
 @home.route("/<int:nav_id>", methods=['GET'])
 @home.route("/<int:nav_id>/<int:cate_id>", methods=['GET'])
 @home.route("/<int:nav_id>/<int:cate_id>/<int:content_id>", methods=['GET'])
-@cache.memoize(60)
+#@cache.memoize(60)
 def index(nav_id=None,cate_id=None,content_id=None):
     # 页码
     url = request.url
@@ -44,7 +44,7 @@ def index(nav_id=None,cate_id=None,content_id=None):
                 CLICKS_COUNT[rule] = 0
             else:
                 click = int(content_data.click)+1
-            Crud.auto_commit('UPDATE {} SET click = {} WHERE id = {} '.format(tableName,click,content_id))
+            Crud.auto_select('UPDATE {} SET click = {} WHERE id = {} '.format(tableName,click,content_id))
             if not content_data.id:
                 return render_template('admin/404.html')
             seo_data = seoData(content_data.keywords,content_data.description,content_data.title) 
