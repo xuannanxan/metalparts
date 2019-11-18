@@ -2,7 +2,7 @@
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
 from werkzeug.security import check_password_hash,generate_password_hash
-from  app.models.base import db,Base,login_manager
+from app.models.base import db,Base
 from flask_login import UserMixin
 from app.models.role import Role
 from app.models.log import Adminlog,Operationlog
@@ -46,11 +46,3 @@ class Admin(UserMixin,Base):
     # 继承了flask-login的UserMixin，主键为id，无需重新定义
     # def get_id(self):
     #     return self.id
-@login_manager.user_loader
-def get_admin(id):
-    """
-    返回用户模型
-    :param id:
-    :return:
-    """
-    return Admin.query.get(int(id))

@@ -5,14 +5,14 @@ import traceback
 from copy import deepcopy
 from flask import current_app
 from app.expand.utils import object_to_dict
-from app.extensions import db,login_manager
+from app.extensions import db
 from datetime import datetime
 from sqlalchemy.sql import and_,or_,not_
 db = db
 and_ = and_
 or_ = or_
 not_ = not_
-login_manager = login_manager
+
 
 
 class Base(db.Model):
@@ -29,7 +29,7 @@ class Base(db.Model):
         # setattr(self,'create_time',datetime.now)
 
 class Crud:
-    def auto_commit(sql):
+    def auto_select(sql,commit=False):
         """
         提交sql语句
         :sql :
@@ -37,23 +37,8 @@ class Crud:
         """
         try:
             data = db.session.execute(sql)
-            db.session.commit()
-            db.session.close()
-            return data
-        except Exception as e:
-            db.session.rollback()
-            current_app.logger.info(e)
-            return False
-
-
-    def auto_select(sql):
-        """
-        提交sql语句
-        :sql :
-        :return: 提示信息
-        """
-        try:
-            data = db.session.execute(sql)
+            if commit:
+                db.session.commit()
             db.session.close()
             return data
         except Exception as e:

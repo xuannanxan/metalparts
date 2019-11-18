@@ -5,9 +5,13 @@ from flask import render_template, request,jsonify,session
 from app.expand.mail import MailObj,send_email
 from app.expand.utils import Pagination
 from app.home.forms import MessageForm
-from app.models import Crud, Category,Message
+from app.models import Crud, Category,Message,User
 from . import home,seoData,cache,getTag,getWebTemplate
+from flask_login import login_user, login_required, logout_user, current_user
+from app.extensions import login_manager
 
+
+    
 @home.route("/search", methods=['GET'])
 def search():
     page,tag,search,cate,templates = 1,'','','',[]

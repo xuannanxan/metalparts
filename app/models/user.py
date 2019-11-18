@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
-from  app.models.base import db,Base,login_manager
+from  app.models.base import db,Base
 from werkzeug.security import check_password_hash,generate_password_hash
 from app.expand.utils import diyId
 # 会员的数据模型
@@ -48,12 +48,4 @@ class User(Base):
     # 继承了flask-login的UserMixin，主键为id，无需重新定义
     # def get_id(self):
     #     return self.id
-# @login_manager.user_loader
-# def get_User(id):
-#     """
-#     返回用户模型
-#     :param id:
-#     :return:
-#     """
-#     return User.query.get(int(id))
 

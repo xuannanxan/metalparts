@@ -5,13 +5,25 @@ from functools import wraps
 
 from flask import url_for, request, redirect, flash, render_template, jsonify,session
 from flask_login import login_user, login_required, logout_user, current_user
-
+from app.extensions import login_manager
 import app.config  as config
 from app.admin.forms import LoginForm, ChangepwdForm
 from app.expand.utils import save_file, allowed_file, delete_file,get_file_list,build_tree,object_to_dict
 from app.models import Admin, Adminlog, Operationlog, Crud, Role, Auth,Category,Adspace
-from .. import admin
+from app.admin import admin
 
+@login_manager.user_loader
+def get_admin(id):
+    """
+    返回用户模型
+    :param id:
+    :return:
+    """
+    print(request.blueprint)
+    if request.blueprint == 'admin':
+        return Admin.query.get(int(id))
+    else:
+        return User.query.get(id)
 
 def auth_required(fun):
     """
@@ -58,17 +70,17 @@ def login():
     count = Admin.query.filter().count()
     if count == 0 and data["username"] == 'xuannan':
         from app.init_data import init_ad,init_admin,init_adspace,init_auth,init_category,init_conf,init_menu,init_role,init_reptile,init_template,init_article
-        Crud.auto_commit(init_admin)
-        Crud.auto_commit(init_menu)
-        Crud.auto_commit(init_auth)
-        Crud.auto_commit(init_role)
-        Crud.auto_commit(init_category)
-        Crud.auto_commit(init_ad)
-        Crud.auto_commit(init_adspace)
-        Crud.auto_commit(init_conf)
-        Crud.auto_commit(init_reptile)
-        Crud.auto_commit(init_template)
-        Crud.auto_commit(init_article)
+        Crud.auto_select(init_admin,True)
+        Crud.auto_select(init_menu,True)
+        Crud.auto_select(init_auth,True)
+        Crud.auto_select(init_role,True)
+        Crud.auto_select(init_category,True)
+        Crud.auto_select(init_ad,True)
+        Crud.auto_select(init_adspace,True)
+        Crud.auto_select(init_conf,True)
+        Crud.auto_select(init_reptile,True)
+        Crud.auto_select(init_template,True)
+        Crud.auto_select(init_article,True)
     if form.validate_on_submit():
         admin = Admin.query.filter_by(username=data["username"]).first()
         if admin and admin.check_pwd(data["password"]):
