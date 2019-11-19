@@ -369,6 +369,39 @@ function user_login() {
     });
 
 }
+//用户注册
+$('#register-btn').click(function(){
+	$(this).disabled = true;
+	if ($('input[name="password"]').val() && $('input[name="password"]').val() == $('input[name="rpassword"]').val()){
+		$.ajax({
+			//几个参数需要注意一下
+			type: "POST",//方法类型
+			dataType: "json",//预期服务器返回的数据类型
+			url: '/register',//url
+			data: $('#register-form').serialize(),
+			success: function (result) {
+				if (result.code == 1) {
+					toastr.success(result.msg);
+					setTimeout(function () {
+						window.location.reload();
+					}, 3000);
+				} else {
+					toastr.error(result.msg);
+					$(this).disabled = false;
+				}
+				;
+			},
+			error: function () {
+				toastr.error("系统错误!!");
+				$(this).disabled = false;
+			}
+		});
+	}else{
+			toastr.error("两次密码输入不一致！");
+			$(this).disabled = false;
+	}
+	
+})
 
 function getColor(){
 	colors = ['#660099','#096000','#0021CC','#ff9933','#cc0033','#7e0023','#999', '#00a5bb','#38c7f4','#003366', '#006699', '#4cabce', '#e5323e']

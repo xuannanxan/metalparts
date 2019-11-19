@@ -74,6 +74,39 @@
         </div>
     </div>
 </div>
+
+<!--LOGIN Modal -->
+<div class="modal fade" id="user-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">注册</h4>
+                </div>
+                <div class="modal-body">
+                        <form role="form" id="register-form" style="padding: 0 40px;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                <div class="form-group has-feedback">
+                                        <input type="text" class="form-control" placeholder="请输入邮箱地址" name="email">
+                                        <i class="fa fa-user form-control-feedback"></i>
+                                </div>
+                                <div class="form-group has-feedback">
+                                        <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                                        <i class="fa fa-lock form-control-feedback"></i>
+                                </div>
+                                <div class="form-group has-feedback">
+                                        <input type="password" class="form-control" placeholder="请再次输入密码" name="rpassword">
+                                        <i class="fa fa-lock form-control-feedback"></i>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <button type="button" style="width: 100%;" id="register-btn" class="btn btn-default" >立即注册</button>
+                                </div>
+                                
+                            </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <!--inquiry Modal -->
 <div class="modal fade" id="inquiry" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -141,17 +174,11 @@
                         <div class="logo">
                             <a href="/"><img id="logo" src="{{webconfig.weblogo}}" alt="Maitul.com"></a>
                         </div>
-
-                        <!-- name-and-slogan -->
-                        <div class="site-slogan">
-                            {{webconfig.slogan}}
-                        </div>
-
                     </div>
                     <!-- header-left end -->
 
                 </div>
-                <div class="col-md-8 mini-nav">
+                <div class="col-md-10 mini-nav">
 
                     <!-- header-right start -->
                     <!-- ================ -->
@@ -179,9 +206,9 @@
 
                                     <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="collapse navbar-collapse" id="navbar-collapse-1">
-                                        <ul class="nav navbar-nav navbar-right">
+                                        <ul class="nav navbar-nav navbar-left">
                                             <li class="{% if not param.nav_data.id %}active{% endif %}">
-                                                <a href="{{url_for('home.index')}}">Home</a>
+                                                <a href="{{url_for('home.index')}}">首页</a>
                                             </li>
                                             <!-- nav start -->
                                             {% for nav in navs%}
@@ -246,6 +273,16 @@
                                             {% endfor %}
                                             <!-- nav end -->
                                         </ul>
+                                        <p class="navbar-text navbar-right">
+                                                <a data-toggle="modal" data-target="#user-register"> 注册</a> | 
+                                                <a data-toggle="modal" data-target="#user-login"> 登录</a>
+                                            </p>
+                                        <form class="navbar-form navbar-right" role="search">
+                                                <div class="form-group has-feedback">
+                                                        <input type="text" class="form-control" style="border-radius: 20px;" placeholder="Search"  name="search" data-url="{{url_for('home.search')}}">
+                                                        <i class="fa fa-search form-control-feedback"></i>
+                                                    </div>
+                                        </form>
                                     </div>
 
                                 </div>
@@ -259,25 +296,7 @@
                     <!-- header-right end -->
 
                 </div>
-                <div class="col-md-2 mini-nav">
-                    <div class="header-right clearfix">
-                        <div class="main-navigation animated">
-                            <nav class="navbar navbar-default" role="navigation">
-                                <div class="container-fluid">
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li>
-                                            <a data-toggle="modal" data-target="#user-login">登录</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="modal" data-target="#inquiry">注册</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
-                    </div>
-                    
-                </div>
+           
             </div>
         </div>
     </header>
