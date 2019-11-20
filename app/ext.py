@@ -19,8 +19,8 @@ cache = Cache(with_jinja2_ext=False)
 
 
 
-# 初始化
-def config_extensions(app):
+# 初始化拓展包
+def init_ext(app):
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'admin.login'

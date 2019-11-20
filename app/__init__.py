@@ -2,7 +2,8 @@
 # Created by xuannan on 2019-01-01.
 
 from flask import Flask,render_template
-from app.extensions import config_extensions
+from app.ext import init_ext
+from app.config import envs
 import logging,os,time
 from logging.handlers import RotatingFileHandler
 from .admin import admin
@@ -51,11 +52,11 @@ def create_app():
     # 创建app实例对象
     app = Flask(__name__)
     # 加载配置
-    app.config.from_object( 'app.config')
-    app.config.from_object( 'app.secure')
+    app.config.from_object( envs.get('dev'))
+    
     app_log(app)
     # 加载扩展
-    config_extensions(app)
+    init_ext(app)
 
     # 配置蓝本
     config_blueprint(app)

@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+
+[packages]
+flask = "*"
+sqlalchemy = "*"
+flask-wtf = "*"
+flask-login = "*"
+flask-mail = "*"
+flask-cache = "*"
+pymysql = "*"
+pillow = "*"
+lxml = "*"
+requests = "*"
+qrcode = "*"
+flask-sqlalchemy = "*"
+flask-restful = "*"
+flask-script = "*"
+
+[requires]
+python_version = "3.7"
