@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-02.
-import os,time
+import os
 from app.secret import secret
-
+# 自定义变量
+# 文件上传的位置
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
+# 水印
+WATER_MARK = os.path.join(BASE_DIR, 'static/admin/img/watermark.png')
 # 通用配置
 class config:
     DEBUG = False
     TESTING = False
-  
-    #文件上传的位置
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
-    # 水印
-    WATER_MARK = os.path.join(BASE_DIR, 'static/admin/img/watermark.png')
     #允许的文件格式
     FILE_EXTENSIONS = set(['txt', 'pdf','rar', 'zip','doc', 'docx','xls', 'xlsx', 'ppt', 'pptx','db','png', 'jpg', 'jpeg', 'gif'])
     IMAGE_EXTENSIONS = set([ 'png', 'jpg', 'jpeg', 'gif'])

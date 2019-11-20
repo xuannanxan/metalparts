@@ -5,7 +5,7 @@ import traceback
 from copy import deepcopy
 from flask import current_app
 from app.expand.utils import object_to_dict
-from app.extensions import db
+from app.ext import db
 from datetime import datetime
 from sqlalchemy.sql import and_,or_,not_
 db = db

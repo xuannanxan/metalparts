@@ -5,7 +5,7 @@ from flask import request,current_app,session
 from app.expand.utils import build_tree,object_to_dict,set_qrcode
 from app.models import Crud,Category,Conf,Ad,Product,Tag,Template
 from .. import home
-from app.extensions import cache
+from app.ext import cache
 
 # cache的运行数量，通过request来进行不同cache的计数
 CLICKS_COUNT = {}

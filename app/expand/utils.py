@@ -2,16 +2,14 @@
 # Created by xuannan on 2019-01-13.
 from PIL import Image
 import os, time, random,re,requests,app,qrcode,base64
-from app.config import UPLOAD_FOLDER
 from lxml import html
 from urllib import parse
 from io import BytesIO,StringIO
-import app.secure as secure
 from datetime import datetime
 from pathlib import Path
 from math import ceil
 
-
+UPLOAD_FOLDER = app.config.UPLOAD_FOLDER
 def get_now_time():
     return datetime.strptime(datetime.now().strftime("%Y/%m/%d %H:%M:%S"), '%Y/%m/%d %H:%M:%S')
 # 爬取列表

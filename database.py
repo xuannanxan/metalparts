@@ -16,7 +16,7 @@ def init_data():
         check = input("确认重置吗？重置后将失去所有历史数据，1为确认，其他为取消：")
         if check == '1':
             db.drop_all(app = app)
-            db.create_all(app = app)
+            #db.create_all(app = app)
             print("重置成功")
         else:
             print("已取消操作")

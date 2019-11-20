@@ -21,6 +21,7 @@ qrcode = "*"
 flask-sqlalchemy = "*"
 flask-restful = "*"
 flask-script = "*"
+flask-migrate = "*"
 
 [requires]
 python_version = "3.7"

@@ -5,7 +5,7 @@ from functools import wraps
 
 from flask import url_for, request, redirect, flash, render_template, jsonify,session
 from flask_login import login_user, login_required, logout_user, current_user
-from app.extensions import login_manager
+from app.ext import login_manager
 import app.config  as config
 from app.admin.forms import LoginForm, ChangepwdForm
 from app.expand.utils import save_file, allowed_file, delete_file,get_file_list,build_tree,object_to_dict

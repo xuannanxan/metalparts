@@ -2,8 +2,8 @@
 # Created by xuannan on 2019-03-26.
 __author__ = 'Allen xu'
 from flask_mail import Message
-from app.extensions import mail
-import app.secure as secure
+from app.ext import mail
+import app.secret as secret
 from threading import Thread
 from concurrent.futures import ThreadPoolExecutor
 

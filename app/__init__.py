@@ -3,6 +3,7 @@
 
 from flask import Flask,render_template
 from app.ext import init_ext
+from app.apis import init_api
 from app.config import envs
 import logging,os,time
 from logging.handlers import RotatingFileHandler
@@ -48,16 +49,18 @@ def config_errorhandler(app):
         return render_template('admin/404.html',e=e)
 
 # 将创建app的动作封装成一个函数
-def create_app():
+def create_app(env):
     # 创建app实例对象
     app = Flask(__name__)
     # 加载配置
-    app.config.from_object( envs.get('dev'))
+    app.config.from_object( envs.get(env))
     
     app_log(app)
     # 加载扩展
     init_ext(app)
 
+    # 加载接口
+    init_api(app=app)
     # 配置蓝本
     config_blueprint(app)
 

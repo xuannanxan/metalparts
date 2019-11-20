@@ -7,7 +7,7 @@ from app.expand.utils import object_to_dict
 from app.home.forms import RegisterForm
 from app.models import User,Crud
 from flask_login import login_user, login_required, logout_user, current_user
-from app.extensions import login_manager
+from app.ext import login_manager
 from app.home import home
 
 # 添加管理员
