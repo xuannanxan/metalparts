@@ -5,4 +5,3 @@ from flask import Blueprint
 home = Blueprint("home",__name__)
 import app.home.views.index
 import app.home.views.base
-import app.home.views.user

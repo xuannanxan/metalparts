@@ -1,25 +1,28 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
-from  app.models.base import db,Base
+from app.models import BaseModel,db
+from app.models.model_constant import PERMISSION_NONE
 from werkzeug.security import check_password_hash,generate_password_hash
-from app.expand.utils import diyId
+from flask_login import UserMixin
 # 会员的数据模型
-class User(Base):
-    __tablename__ = "user"
-    id = db.Column(db.String(32), primary_key=True,default=diyId)
+class User(UserMixin,BaseModel):
+    __tablename__ = "user"  
+    username = db.Column(db.String(100), unique=True)
     email = db.Column(db.String(100), unique=True)
     _password = db.Column(db.String(100))
     name = db.Column(db.String(100))
-    phone = db.Column(db.String(100))
+    phone = db.Column(db.String(100), unique=True)
     info = db.Column(db.Text)
-    status = db.Column(db.SmallInteger, default=1)  # 用户状态，第一位 1为已激活 0为禁用
+    permission = db.Column(db.Integer, default=PERMISSION_NONE)  # 用户权限
+    status = db.Column(db.SmallInteger, default=0)  # 用户状态，第一位 1为已激活 0为未激活
     profile = db.Column(db.String(255))
     address = db.Column(db.String(255))
 
 
     def __repr__(self):
-        return '<User %r>' % self.email
+        return '<User %r>' % self.username
+
     @property
     def password(self):
         """

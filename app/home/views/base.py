@@ -5,7 +5,7 @@ from flask import render_template, request,jsonify,session
 from app.expand.mail import MailObj,send_email
 from app.expand.utils import Pagination
 from app.home.forms import MessageForm
-from app.models import Crud, Category,Message,User
+from app.models import Crud, Category,Message
 from . import home,seoData,cache,getTag,getWebTemplate
 
 

@@ -2,17 +2,15 @@
 # Created by xuannan on 2019-01-16.
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_cache import Cache
-
+from flask import Blueprint
 
 
 # 创建对象
 db = SQLAlchemy()
 migrate = Migrate()
-csrf = CSRFProtect()
 login_manager = LoginManager()
 mail = Mail()
 #缓存
@@ -28,7 +26,5 @@ def init_ext(app):
     login_manager.login_view = 'admin.login'
     login_manager.login_message = '请先登录！！！'
     cache.init_app(app)
-    #db.create_all(app = app)
-    csrf.init_app(app)
     mail.init_app(app)
 

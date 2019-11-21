@@ -9,7 +9,7 @@ from app.ext import login_manager
 import app.config  as config
 from app.admin.forms import LoginForm, ChangepwdForm
 from app.expand.utils import save_file, allowed_file, delete_file,get_file_list,build_tree,object_to_dict
-from app.models import Admin, Adminlog, Operationlog, Crud, Role, Auth,Category,Adspace,User
+from app.models import Admin, Adminlog, Operationlog, Crud, Role, Auth,Category,Adspace
 from app.admin import admin
 
 @login_manager.user_loader
