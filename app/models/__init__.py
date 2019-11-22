@@ -19,14 +19,17 @@ from app.models.favorite import Favorite
 from app.models.footmark import Footmark
 from app.models.template import Template
 
+
+import uuid
 from datetime import datetime
 from flask import current_app
 from app.ext import db
+
 class BaseModel(db.Model):
     #不需要创建base表
     __abstract__ = True
     #所有模型继承的字段
-    id = db.Column(db.Integer,primary_key=True)
+    id = db.Column(db.String(32),primary_key=True,default=uuid.uuid4().hex)
     create_time = db.Column(db.DateTime, nullable=True,default=datetime.now)
     update_time = db.Column(db.DateTime, nullable=True, default=datetime.now, onupdate=datetime.now)  # 记录的更新时间
     is_del = db.Column(db.String(32), default=0)  # 状态，0为未删除，其他为已删除
@@ -76,3 +79,4 @@ class BaseModel(db.Model):
             print(e)
             current_app.logger.info(e)
             return False
+
