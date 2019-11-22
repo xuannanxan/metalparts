@@ -3,18 +3,29 @@
 
 from flask import Flask,render_template
 from app.ext import init_ext
-from app.apis import init_api
 from app.config import envs
 import logging,os,time
 from logging.handlers import RotatingFileHandler
 from .admin import admin
 from .home import home
+from app.apis import api_blueprint
 from app.expand.utils import make_dir
+from app.apis.client import client_api
+from app.apis.admin import admin_api
+from app.apis.company import company_api
+
 DEFAULT_BLUEPRINT = (
     (admin,'/admin'),
-    (home,'')
+    (home,''),
+    (api_blueprint,'/api')
 
 )
+
+
+def init_api(app):
+    client_api.init_app(app)
+    company_api.init_app(app)
+    admin_api.init_app(app)
 
 def app_log(app):
     log_dir_name = "logs"
