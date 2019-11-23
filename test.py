@@ -1,3 +1,26 @@
 import os
-for filename in os.listdir(r'D:\8 文档\文档\2.需求文档\2 项目\2 智慧油客\测试记录\智慧常用脚本'):
-    print(filename)
+from time import time
+
+
+
+# 装饰器
+
+def runtime(fun):
+    
+    def wrapper1(*args,**kwargs):
+        begintime = time()
+        result = fun(*args,**kwargs)
+        endtime = time()
+        print(endtime-begintime)
+        return result
+    return wrapper1
+
+@runtime
+def filelist(dir):
+    for filename in os.listdir(dir):
+        print('filename')
+        print(filename)
+
+if __name__ == '__main__':
+    filelist('d:/')
+

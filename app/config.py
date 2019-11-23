@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-02.
 import os
+from redis import Redis
 from app.secret import secret
 # 自定义变量
 # 文件上传的位置
@@ -17,10 +18,26 @@ class config:
     IMAGE_EXTENSIONS = set([ 'png', 'jpg', 'jpeg', 'gif'])
     #图片大小
     MAX_CONTENT_LENGTH = 8 * 1024 * 1024
-    
-    #设置simple缓存类型
-    CACHE_TYPE = 'simple'
+
+    # 设置redis的ip,port,有效时间
+    REDIS_HOST = "127.0.0.1"
+    REDIS_PORT = "6379"
+    REDIS_DB= 0
+    REDIS_PASSWORD = ''
+
+
+    #设置CACHE
+    CACHE_TYPE = 'redis'
+    CACHE_REDIS_HOST = REDIS_HOST
+    CACHE_REDIS_PORT = REDIS_PORT
+    CACHE_REDIS_PASSWORD = REDIS_PASSWORD
     CACHE_DEFAULT_TIMEOUT = 300
+
+    # 设置session
+    SESSION_TYPE = 'redis'
+    SESSION_REDIS=  Redis(host=REDIS_HOST, port=REDIS_PORT, password= REDIS_PASSWORD,db = REDIS_DB)
+    SESSION_PERMANENT = True  # 如果设置为True，则关闭浏览器session就失效
+    SESSION_USE_SIGNER = True # 是否对发送到浏览器上 session:cookie值进行加密
     # 数据库配置
     # 数据库公用配置
     # 无警告

@@ -1,9 +1,10 @@
 from flask_restful import Resource,reqparse,fields,marshal,abort
 from app.models.client import User
 from app.apis.api_constant import *
-from app.apis.client.model_utils import get_user
+from app.apis.client.common import get_user,login_required
 import uuid
-from flask_cache import Cache
+from app.ext import cache
+from flask import g
 
 parse_base = reqparse.RequestParser()
 parse_base.add_argument('password',type=str,required=True,help='请输入密码')
@@ -55,11 +56,11 @@ class UsersResource(Resource):
             if user.add():
                 data = {
                     'status':HTTP_CREATE_OK,
-                    'msg':'新增成功',
+                    'msg':'注册成功',
                     'data':user
                 }
                 return marshal(data,sing_user_fields)
-            abort(400,msg='新增失败')
+            abort(400,msg='注册失败')
         # 登录
         elif action == USER_ACTION_LOGIN:
             args_login = parse_login.parse_args()
@@ -70,13 +71,23 @@ class UsersResource(Resource):
             if (not user.check_pwd(password)) or user.is_del != '0':
                 abort(401,msg='用户名或密码错误')
             token = uuid.uuid4().hex
-            Cache.set(token,user.id,timeout=60*60*7)
+            cache.set(token,user.id,timeout=60*60*7)
             data = {
                 'status':HTTP_OK,
                 'msg':'登录成功',
                 'token':token
             }
+            return data
         else:
             abort(400,msg='参数错误，请检查后重试')
+
+    @login_required
+    def get(self):
+        '''
+        获取用户信息
+        '''
+        return g.user.username
+
+
         
         
