@@ -1,23 +1,26 @@
 from flask_restful import Resource,reqparse,fields,marshal,abort
 from app.models.client import User
 from app.apis.api_constant import *
-from app.apis.client.common import get_user,login_required
+from app.apis.client.common import get_user,login_required,logout
 import uuid
 from app.ext import cache
 from flask import g
+from app.expand.utils import object_to_json
 
 parse_base = reqparse.RequestParser()
 parse_base.add_argument('password',type=str,required=True,help='请输入密码')
 parse_base.add_argument('action',type=str,required=True,help='请确认请求参数')
-
+# 注册
 parse_register = parse_base.copy()
 parse_register.add_argument('username',type=str,required=True,help='请输入用户名')
 parse_register.add_argument('email',type=str,required=True,help='请输入邮箱地址')
 parse_register.add_argument('phone',type=str,required=True,help='请输入手机号码')
-
+# 登录
 parse_login = parse_base.copy()
 parse_login.add_argument('username',type=str,required=True,help='请输入用户名/邮箱/手机')
-
+# 修改密码
+parse_change_pwd = parse_base.copy()
+parse_change_pwd.add_argument('new_password',type=str,required=True,help='请输入新密码')
 
 user_fields = {
     'username':fields.String,
@@ -86,7 +89,34 @@ class UsersResource(Resource):
         '''
         获取用户信息
         '''
-        return g.user.username
+        return object_to_json(g.user) 
+
+    @login_required   
+    def put(self):
+        '''
+        修改用户信息
+        '''
+        # 修改密码
+        if action == USER_ACTION_CHANGE_PWD:
+            args = parse_change_pwd.parse_args()
+            password = args.get('password')
+            new_password = args.get('new_password')
+            action = args.get('action').lower()
+            user = g.user
+            if (not user.check_pwd(password)) or user.is_del != '0':
+                abort(401,msg='用户名或密码错误')
+            user.password = new_password
+            if user.updata():
+                logout()
+                return  {
+                    'status':HTTP_OK,
+                    'msg':'修改成功',
+                    }
+            abort(400,msg='修改密码失败')
+        # 修改用户信息
+        elif action == USER_ACTION_CHANGE_INFO:
+
+            pass
 
 
         

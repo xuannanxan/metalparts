@@ -54,4 +54,11 @@ def permission_required(permission):
             return fun(*args,**kwargs)
         return wrapper
     return permission_required_wrapper
-    pass
+
+
+def logout():
+    '''
+    登出
+    '''
+    token = request.args.get('token')
+    cache.delete(token) 

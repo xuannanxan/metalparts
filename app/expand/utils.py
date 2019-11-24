@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-13.
 from PIL import Image
-import os, time, random,re,requests,app,qrcode,base64
+import os, time, random,re,requests,app,qrcode,base64,json
 from lxml import html
 from urllib import parse
 from io import BytesIO,StringIO
@@ -103,6 +103,16 @@ def object_to_dict(obj):
     data = obj.__dict__
     if "_sa_instance_state" in data:
         del data["_sa_instance_state"]
+    if "password" in data:
+        del data["password"]
+    if "_password" in data:
+        del data["_password"]
+    return data
+
+def object_to_json(obj):
+    data = object_to_dict(obj)
+    data = json.dumps(data, default=str, ensure_ascii=False)
+    data = json.loads(data)
     return data
 
 def build_tree(data, pid, level=0):

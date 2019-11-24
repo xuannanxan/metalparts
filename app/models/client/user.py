@@ -28,7 +28,7 @@ class User(UserMixin,BaseModel):
         读取属性
         :return:
         """
-        return self._password
+        raise Exception('密码无法直接访问')
 
     @password.setter
     def password(self,raw):

@@ -52,6 +52,16 @@ class BaseModel(db.Model):
             current_app.logger.info(e)
             return False
 
+    def updata(self):
+        try:
+            db.session.commit()
+            return True
+        except Exception as e:
+            db.session.rollback()
+            print(e)
+            current_app.logger.info(e)
+            return False
+
     def clean(self):
         '''
         清除数据，物理删除，谨慎操作

@@ -3,3 +3,5 @@ HTTP_CREATE_OK = 201
 
 USER_ACTION_LOGIN = 'login'
 USER_ACTION_REGISTER = 'register'
+USER_ACTION_CHANGE_PWD = 'change_pwd'
+USER_ACTION_CHANGE_INFO = 'change_info'
