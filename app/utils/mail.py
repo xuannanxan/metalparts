@@ -1,6 +1,14 @@
-# -*- coding: utf-8 -*- 
-# Created by xuannan on 2019-03-26.
-__author__ = 'Allen xu'
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-21 10:12:25
+@LastEditTime: 2019-11-25 13:11:19
+@LastEditors: Xuannan
+'''
+
+
 from flask_mail import Message
 from app.ext import mail
 import app.secret as secret

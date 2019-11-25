@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-13 17:29:27
+@LastEditTime: 2019-11-25 13:22:52
+@LastEditors: Xuannan
+'''
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-25.
 __author__ = 'Allen xu'
@@ -15,19 +24,3 @@ from app.admin.forms.conf import ConfForm
 from app.admin.forms.reptile import ReptileForm
 from app.admin.forms.template import TemplateForm
 
-ChangepwdForm =ChangepwdForm
-LoginForm = LoginForm
-TagForm = TagForm
-RoleForm = RoleForm
-AuthForm = AuthForm
-MenuForm = MenuForm
-AdminForm = AdminForm
-MobileLoginForm = MobileLoginForm
-CategoryForm = CategoryForm
-ArticleForm = ArticleForm
-ProductForm = ProductForm
-AdForm = AdForm
-AdspaceForm = AdspaceForm
-ConfForm = ConfForm
-ReptileForm = ReptileForm
-TemplateForm = TemplateForm

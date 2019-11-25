@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-21 10:12:25
+@LastEditTime: 2019-11-25 15:34:33
+@LastEditors: Xuannan
+'''
 # -*- coding: utf-8 -*-
 # Created by xuannan on 2019-01-01.
 import os
@@ -20,6 +29,8 @@ manager.add_command('db',MigrateCommand)
     python manager.py db upgrade
 启动服务
     python manager.py runserver
+接口文档
+    http://localhost:5000/apidocs/
 '''
 if __name__ == '__main__':
     manager.run()

@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired, Length
 
-from app.expand.utils import error_to_string
+from app.utils import error_to_string
 
 
 # 标签表单，只用于验证

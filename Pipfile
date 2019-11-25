@@ -24,6 +24,8 @@ flask-script = "*"
 flask-migrate = "*"
 flask-session = "*"
 redis = "*"
+flasgger = "*"
+setuptools = "*"
 
 [requires]
 python_version = "3.7"

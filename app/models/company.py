@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
-from app.models.base import db,Base
+from app.models import db,BaseModel
 from app.expand.utils import diyId
 # 企业的数据模型
-class Company(Base):
+class Company(BaseModel):
     __tablename__ = "company"
-    id = db.Column(db.String(32), primary_key=True,default=diyId)
     email = db.Column(db.String(100), unique=True)
     aid = db.Column(db.String(255))  # 管理员用户
     name = db.Column(db.String(100))

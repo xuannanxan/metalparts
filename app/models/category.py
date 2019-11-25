@@ -2,11 +2,10 @@
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
 
-from  app.models.base import db,Base
+from  app.models import db,BaseModel
 # 栏目
-class Category(Base):
+class Category(BaseModel):
     __tablename__ = "category"
-    id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.SmallInteger, default=1)  # 栏目类型，1为产品，2为文章,3为外链
     icon = db.Column(db.String(100))
     name = db.Column(db.String(200),nullable=False)

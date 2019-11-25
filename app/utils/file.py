@@ -1,48 +1,20 @@
-# -*- coding: utf-8 -*- 
-# Created by xuannan on 2019-01-13.
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-25 10:34:07
+@LastEditTime: 2019-11-25 13:11:23
+@LastEditors: Xuannan
+'''
+
+
 from PIL import Image
-import os, time, random,re,requests,app,qrcode,base64,json
-from lxml import html
-from urllib import parse
-from io import BytesIO,StringIO
+import os, time, random,re,requests
+from io import BytesIO
 from datetime import datetime
 from pathlib import Path
-from math import ceil
 from app.config import UPLOAD_FOLDER
-
-def get_now_time():
-    return datetime.strptime(datetime.now().strftime("%Y/%m/%d %H:%M:%S"), '%Y/%m/%d %H:%M:%S')
-# 爬取列表
-def getReptileList(url,dom):
-    # 获取网站数据
-    r = requests.get(url)
-    etree = html.etree
-    selector = etree.HTML(r.content)
-    domList = selector.xpath(dom)
-    lst = [full_url(url,dm) for dm in domList]
-    return lst
-
-# 爬取内容数据
-def getReptileContent(url,content_obj):
-    r = requests.get(url)
-    etree = html.etree
-    selector = etree.HTML(r.content)
-    content_data = {}
-    for key in content_obj:
-        # 回避空字典
-        if content_obj[key]:
-            catch_data = selector.xpath(content_obj[key])
-            # 抓不到数据就跳过
-            if len(catch_data) < 1:
-                return
-            arr = [dom if not isEtreeElement(dom) else etree.tostring(dom,encoding="utf-8", method='html').decode(encoding='utf-8') for dom in catch_data]
-            str_dom = ''.join(arr)
-            #下载图片，替换URL
-            content_data[key] =  replaceSrc(str_dom,url)
-    return content_data
-
-def full_url(url,relative_url):
-    return parse.urljoin(url, relative_url)
 
 #下载图片并替换HTML中的图片链接
 def replaceSrc(content,url):
@@ -78,64 +50,6 @@ def downImage(src):
     # 重写合成文件名
     im.save(os.path.join(d, fn + ext))
     return '/static/uploads/'+path+'/'+fn + ext
-
-
-def error_to_string(err):
-    """
-    错误列表转字符串
-    :param err:
-    :return:
-    """
-    errors = ''
-    for v in err:
-        for m in v:
-            errors += m
-        errors += '\n'
-    return errors
-
-
-def object_to_dict(obj):
-    """
-    对象转字典
-    :param model:
-    :return:
-    """
-    data = obj.__dict__
-    if "_sa_instance_state" in data:
-        del data["_sa_instance_state"]
-    if "password" in data:
-        del data["password"]
-    if "_password" in data:
-        del data["_password"]
-    return data
-
-def object_to_json(obj):
-    data = object_to_dict(obj)
-    data = json.dumps(data, default=str, ensure_ascii=False)
-    data = json.loads(data)
-    return data
-
-def build_tree(data, pid, level=0):
-    """
-    生成树
-    :param data:    数据
-    :param p_id:    上级分类
-    :param level:   当前级别
-    :return:
-    """
-    tree = []
-    for v in data:
-        row = object_to_dict(v)
-        if row:
-            if row['pid'] == pid:
-                row['level'] = level
-                child = build_tree(data, row['id'], level+1)
-                row['children'] = []
-                if child:
-                    row['children'] += child
-                tree.append(row)
-    return tree
-
 
 def thumb_image(img, w=128, h=128):
     '''
@@ -330,131 +244,10 @@ def get_file_list(path=''):
     return file_list
 
 
-def set_qrcode(url):
-    """
-    根据传入的url 生成 二维码对象
-    :param url:
-    :return:
-    """
-    qr = qrcode.QRCode(version=1,  # 二维码大小 1～40
-                       error_correction=qrcode.constants.ERROR_CORRECT_L,  # 二维码错误纠正功能
-                       box_size=10,  # 二维码 每个格子的像素数
-                       border=2)     # 二维码与图片边界的距离
-
-    qr.add_data(url)
-    qr.make(fit=True)
-    img = qr.make_image()
-    byte_io = BytesIO()
-    img.save(byte_io, 'PNG')
-    res = byte_io.getvalue()
-    byte_io.close()
-    return (base64.b64encode(res)).decode()
-
 def make_dir(make_dir_path):
     path = make_dir_path.strip()
     if not os.path.exists(path):
         os.makedirs(path)
     return path
 
-def rows_by_date(data,name):
-    '''
-    按字段对数据进行分类
-    '''
-    from collections import defaultdict
-    rows_date = defaultdict(list)
-    for row in data:
-        rows_date[row[name]].append(row)    
-    return rows_date
 
-class Pagination(object):
-    """改装sqlalchemy的分页对象
-    """
-
-    def __init__(self, page, per_page, total, items):
-        #: the current page number (1 indexed)
-        self.page = page
-        #: the number of items to be displayed on a page.
-        self.per_page = per_page
-        #: the total number of items matching the query
-        self.total = total
-        #: the items for the current page
-        self.items = items
-
-    @property
-    def pages(self):
-        """The total number of pages"""
-        if self.per_page == 0:
-            pages = 0
-        else:
-            pages = int(ceil(self.total / float(self.per_page)))
-        return pages
-
-    def prev(self, error_out=False):
-        pass
-
-    @property
-    def prev_num(self):
-        """Number of the previous page."""
-        if not self.has_prev:
-            return None
-        return self.page - 1
-
-    @property
-    def has_prev(self):
-        """True if a previous page exists"""
-        return self.page > 1
-
-    def next(self, error_out=False):
-        pass
-
-    @property
-    def has_next(self):
-        """True if a next page exists."""
-        return self.page < self.pages
-
-    @property
-    def next_num(self):
-        """Number of the next page"""
-        if not self.has_next:
-            return None
-        return self.page + 1
-
-    def iter_pages(self, left_edge=2, left_current=2,
-                   right_current=5, right_edge=2):
-        """Iterates over the page numbers in the pagination.  The four
-        parameters control the thresholds how many numbers should be produced
-        from the sides.  Skipped page numbers are represented as `None`.
-        This is how you could render such a pagination in the templates:
-
-        .. sourcecode:: html+jinja
-
-            {% macro render_pagination(pagination, endpoint) %}
-              <div class=pagination>
-              {%- for page in pagination.iter_pages() %}
-                {% if page %}
-                  {% if page != pagination.page %}
-                    <a href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
-                  {% else %}
-                    <strong>{{ page }}</strong>
-                  {% endif %}
-                {% else %}
-                  <span class=ellipsis>…</span>
-                {% endif %}
-              {%- endfor %}
-              </div>
-            {% endmacro %}
-        """
-        last = 0
-        for num in range(1, self.pages + 1):
-            if num <= left_edge or \
-               (num > self.page - left_current - 1 and
-                num < self.page + right_current) or \
-               num > self.pages - right_edge:
-                if last + 1 != num:
-                    yield None
-                yield num
-                last = num
-
-def diyId():
-    id = time.strftime('%Y%m%d%H%M%S') + '%d' % random.randint(100,999)
-    return id

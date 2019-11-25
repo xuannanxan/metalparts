@@ -1,13 +1,19 @@
-# -*- coding: utf-8 -*- 
-# Created by xuannan on 2019-01-26.
+'''
+@Description: 
+@Version: 1.0
+@Autor: Allen
+@Date: 2019-11-13 17:29:28
+@LastEditors: Allen
+@LastEditTime: 2019-11-25 10:56:33
+'''
+
 __author__ = 'Allen xu'
-from  app.models.base import db,Base
+from  app.models import db,BaseModel
 
 
 # 角色
-class Role(Base):
+class Role(BaseModel):
     __tablename__ = "role"
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True,nullable=False)
     auths = db.Column(db.String(512))
   
@@ -16,9 +22,8 @@ class Role(Base):
         return '<Role %r>' % self.name
 
 # 权限
-class Auth(Base):
+class Auth(BaseModel):
     __tablename__ = "auth"
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100),nullable=False)
     url = db.Column(db.String(255))
     menu_id = db.Column(db.Integer)  # 所属菜单

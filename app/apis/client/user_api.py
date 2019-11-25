@@ -1,11 +1,11 @@
-from flask_restful import Resource,reqparse,fields,marshal,abort
+from flask_restful import Resource,reqparse,fields,marshal,abort,inputs
 from app.models.client import User
 from app.apis.api_constant import *
 from app.apis.client.common import get_user,login_required,logout
 import uuid
 from app.ext import cache
 from flask import g
-from app.expand.utils import object_to_json
+from app.utils import object_to_json
 
 parse_base = reqparse.RequestParser()
 parse_base.add_argument('password',type=str,required=True,help='请输入密码')
@@ -14,7 +14,7 @@ parse_base.add_argument('action',type=str,required=True,help='请确认请求参
 parse_register = parse_base.copy()
 parse_register.add_argument('username',type=str,required=True,help='请输入用户名')
 parse_register.add_argument('email',type=str,required=True,help='请输入邮箱地址')
-parse_register.add_argument('phone',type=str,required=True,help='请输入手机号码')
+parse_register.add_argument('phone',type=inputs.regex(r'1[35789]\d{9}'),help='手机号码错误')
 # 登录
 parse_login = parse_base.copy()
 parse_login.add_argument('username',type=str,required=True,help='请输入用户名/邮箱/手机')
@@ -36,6 +36,9 @@ sing_user_fields = {
 
 class UsersResource(Resource):
     def post(self):
+        """
+        file: yml/register.yml
+        """
         args = parse_base.parse_args()
         password = args.get('password')
         action = args.get('action').lower()

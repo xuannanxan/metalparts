@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-13 17:29:27
+@LastEditTime: 2019-11-25 13:21:56
+@LastEditors: Xuannan
+'''
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
@@ -5,7 +14,7 @@ from flask_wtf import FlaskForm
 from wtforms import  PasswordField,StringField,IntegerField
 from wtforms.validators import DataRequired, Length
 
-from app.expand.utils import error_to_string
+from app.utils import error_to_string
 
 
 # 修改密码表单，只用于验证

@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
-from  app.models.base import db, Base
+from  app.models import db, BaseModel
 
 
 # 留言
 
-class Message(Base):
+class Message(BaseModel):
     __tablename__ = "message"
-    id = db.Column(db.Integer, primary_key=True)
     contact = db.Column(db.String(100))  # 联系方式
     email = db.Column(db.String(100))  # 邮箱
     name = db.Column(db.String(100))  # 联系人

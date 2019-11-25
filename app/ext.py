@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-25 09:14:35
+@LastEditTime: 2019-11-25 14:18:13
+@LastEditors: Xuannan
+'''
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-16.
 from flask_migrate import Migrate
@@ -7,7 +16,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_cache import Cache
 from app.apis import api_blueprint
-
+from flasgger import Swagger
 
 # 创建对象
 db = SQLAlchemy()
@@ -30,4 +39,5 @@ def init_ext(app):
     cache.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)
+    Swagger(app)
 

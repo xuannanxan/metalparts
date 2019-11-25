@@ -2,8 +2,9 @@
 # Created by xuannan on 2019-01-01.
 
 from flask import request,current_app,session
-from app.expand.utils import build_tree,object_to_dict,set_qrcode
-from app.models import Crud,Category,Conf,Ad,Product,Tag,Template
+from app.utils.tree import build_tree
+from app.utils import object_to_dict
+from app.utils.qrcode import set_qrcode
 from .. import home
 from app.ext import cache
 
@@ -68,9 +69,9 @@ def getWebConfig():
     获取站点配置信息
     '''
     webconfig = {}
-    conf_model_data = Crud.get_data(Conf,Conf.sort.desc())
-    for v in conf_model_data:
-        webconfig[v.ename] = v.default_value
+    # conf_model_data = Crud.get_data(Conf,Conf.sort.desc())
+    # for v in conf_model_data:
+    #     webconfig[v.ename] = v.default_value
     return webconfig
 
 

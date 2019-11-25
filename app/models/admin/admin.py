@@ -1,17 +1,22 @@
-# -*- coding: utf-8 -*- 
-# Created by xuannan on 2019-01-26.
+'''
+@Description: 
+@Version: 1.0
+@Autor: Allen
+@Date: 2019-11-18 17:04:48
+@LastEditors: Allen
+@LastEditTime: 2019-11-25 10:52:59
+'''
 __author__ = 'Allen xu'
 from werkzeug.security import check_password_hash,generate_password_hash
-from app.models.base import db,Base
+from app.models import db,BaseModel
 from flask_login import UserMixin
 from app.models.role import Role
 from app.models.log import Adminlog,Operationlog
 
 
 # 管理员
-class Admin(UserMixin,Base):
+class Admin(UserMixin,BaseModel):
     __tablename__ = "admin"
-    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True,nullable=False)
     _password = db.Column('password',db.String(128),nullable=False)
     is_super = db.Column(db.SmallInteger, default=0)  # 是否超级管理员 1为是 0为否

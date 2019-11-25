@@ -1,0 +1,47 @@
+用户注册和登录
+---
+parameters:
+  - name: action
+    in: path
+    type: string
+    enum: ['login', 'register']
+    required: true
+    default: 
+  - name: username
+    in: path
+    type: string
+    required: true
+  - name: password
+    in: path
+    type: string
+    required: true
+  - name: email
+    in: path
+    type: string
+    required: true
+  - name: phone
+    in: path
+    type: string
+    required: true
+responses:
+  200:
+    description: 注册成功,返回用户基本信息
+    schema:
+      properties:
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+  400:
+    description: 注册失败
+    schema:
+      properties:
+        msg:
+          type: string

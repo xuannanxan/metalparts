@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
-from  app.models.base import db, Base
+from  app.models import db, BaseModel
 
 
 # 配置项
-class Conf(Base):
+class Conf(BaseModel):
     __tablename__ = "conf"
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     ename = db.Column(db.String(100), nullable=False)
     type = db.Column(db.SmallInteger, default=1)  # 配置类型，1为文本，2为数字,3为文本域，4为下拉单选，5为下拉多选，6为图片，7为富文本

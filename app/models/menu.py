@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
-from  app.models.base import db,Base
+from  app.models import db
 
 # 菜单
-class Menu(Base):
+class Menu(BaseModel):
     __tablename__ = "menu"
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100),nullable=False)
     icon = db.Column(db.String(100))
     url = db.Column(db.String(255))

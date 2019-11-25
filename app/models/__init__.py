@@ -1,23 +1,12 @@
-# -*- coding: utf-8 -*- 
-# Created by xuannan on 2019-01-26.
-__author__ = 'Allen xu'
-from app.models.role import Role,Auth
-from app.models.log import Adminlog,Operationlog,Userlog
-from app.models.base import Crud,and_,or_,not_
-from app.models.category import Category
-from app.models.article import Article
-from app.models.product import Product
-from app.models.tag import Tag,TagRelation
-from app.models.ad import Ad,Adspace
-from app.models.admin import Admin
-
-from app.models.menu import Menu
-from app.models.conf import Conf
-from app.models.reptile import ReptileRequest,ReptileList
-from app.models.message import Message
-from app.models.favorite import Favorite
-from app.models.footmark import Footmark
-from app.models.template import Template
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-25 09:14:35
+@LastEditTime: 2019-11-25 13:13:13
+@LastEditors: Xuannan
+'''
 
 
 import uuid

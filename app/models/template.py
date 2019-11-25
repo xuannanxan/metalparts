@@ -1,11 +1,19 @@
+'''
+@Description: 
+@Version: 1.0
+@Autor: Allen
+@Date: 2019-11-13 17:29:28
+@LastEditors: Allen
+@LastEditTime: 2019-11-25 10:57:31
+'''
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
-from  app.models.base import db, Base
+from  app.models import db, BaseModel
 
 
 # 页面设置，设置模板等信息
-class Template(Base):
+class Template(BaseModel):
     __tablename__ = "template"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200),nullable=False)
