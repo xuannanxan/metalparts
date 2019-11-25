@@ -18,9 +18,8 @@ def runtime(fun):
 @runtime
 def filelist(dir):
     for filename in os.listdir(dir):
-        print('filename')
         print(filename)
 
 if __name__ == '__main__':
-    filelist('d:/')
+    filelist('D:/python/metalparts/app/utils/captcha')
 
