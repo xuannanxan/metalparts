@@ -1,0 +1,39 @@
+用户登录
+---
+parameters:
+  - name: action
+    in: path
+    type: string
+    enum: ['login']
+    required: true
+    default: 
+  - name: username
+    in: path
+    type: string
+    required: true
+  - name: password
+    in: path
+    type: string
+    required: true
+responses:
+  200:
+    description: 登录成功,返回Token
+    schema:
+      properties:
+        msg:
+          type: string
+        token:
+          type: string
+  400:
+    description: 用户不存在
+    schema:
+      properties:
+        msg:
+          type: string
+  401:
+    description: 密码错误
+    schema:
+      properties:
+        msg:
+          type: string
+

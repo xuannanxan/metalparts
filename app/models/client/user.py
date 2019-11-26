@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-25 09:14:35
+@LastEditTime: 2019-11-26 17:13:22
+@LastEditors: Xuannan
+'''
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
 __author__ = 'Allen xu'
@@ -53,5 +62,4 @@ class User(UserMixin,BaseModel):
             return False
         else:
             return permission & self.permission == permission
-        pass
 

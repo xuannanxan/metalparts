@@ -1,10 +1,10 @@
-用户注册和登录
+用户注册
 ---
 parameters:
   - name: action
     in: path
     type: string
-    enum: ['login', 'register']
+    enum: ['register']
     required: true
     default: 
   - name: username
@@ -40,8 +40,9 @@ responses:
             phone:
               type: string
   400:
-    description: 注册失败
+    description: 注册失败/用户名已注册/邮箱已注册/手机已注册
     schema:
       properties:
         msg:
           type: string
+

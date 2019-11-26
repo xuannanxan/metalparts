@@ -118,7 +118,7 @@ class UsersResource(Resource):
             abort(400,msg='修改密码失败')
         # 修改用户信息
         elif action == USER_ACTION_CHANGE_INFO:
-
+            
             pass
 
 

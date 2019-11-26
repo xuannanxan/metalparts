@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-25 09:14:35
+@LastEditTime: 2019-11-26 14:12:34
+@LastEditors: Xuannan
+'''
 from app.models.client import User
 from flask import request,g
 from flask_restful import abort
