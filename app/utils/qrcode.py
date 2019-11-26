@@ -4,13 +4,13 @@
 @Description: 
 @Author: Xuannan
 @Date: 2019-11-25 10:40:04
-@LastEditTime: 2019-11-25 13:11:13
+@LastEditTime: 2019-11-26 22:25:08
 @LastEditors: Xuannan
 '''
 
 
 import qrcode,base64
-
+from io import BytesIO
 
 def set_qrcode(url):
     """

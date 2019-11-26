@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+@Description: 
+@Author: Xuannan
+@Date: 2019-11-25 21:48:37
+@LastEditTime: 2019-11-26 22:25:30
+@LastEditors: Xuannan
+'''
 import random
 import string
 # Image:一个画布
@@ -6,7 +15,8 @@ import string
 
 # pip install pillow
 from PIL import Image, ImageDraw, ImageFont
-
+from io import BytesIO
+import base64
 
 class Captcha(object):
     # 生成几位数的验证码
@@ -49,13 +59,9 @@ class Captcha(object):
     # 随机选择一个字体
     @classmethod
     def __gene_random_font(cls):
-        fonts = [
-            'ARBLANCA.ttf',
-            'AxureHandwriting-Bold.otf',
+        fonts = [ 
             'swissck.ttf',
             'swissko.ttf',
-            'tahoma.ttf',
-            'techl___.ttf',
             'times.ttf',
             'verdana.ttf',
         ]
@@ -91,4 +97,9 @@ class Captcha(object):
             cls.__gene_line(draw, width, height)
         #绘制噪点
         cls.__gene_points(draw, 10, width, height)
-        return (text, image)
+        
+        byte_io = BytesIO()
+        image.save(byte_io,format='png')
+        res = byte_io.getvalue()
+        byte_io.close()
+        return (text, (base64.b64encode(res)).decode())

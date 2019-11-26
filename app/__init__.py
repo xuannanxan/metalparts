@@ -4,7 +4,7 @@
 @Description: 
 @Author: Xuannan
 @Date: 2019-11-25 09:14:35
-@LastEditTime: 2019-11-25 13:26:13
+@LastEditTime: 2019-11-26 21:27:19
 @LastEditors: Xuannan
 '''
 # -*- coding: utf-8 -*- 
@@ -22,6 +22,7 @@ from app.utils.file import make_dir
 from app.apis.client import client_api
 from app.apis.admin import admin_api
 from app.apis.company import company_api
+from app.apis.common import common_api
 
 DEFAULT_BLUEPRINT = (
     (admin,'/admin'),
