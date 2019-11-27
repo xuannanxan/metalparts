@@ -4,7 +4,7 @@
 @Description: 
 @Author: Xuannan
 @Date: 2019-11-25 09:14:35
-@LastEditTime: 2019-11-25 13:13:13
+@LastEditTime: 2019-11-27 21:14:54
 @LastEditors: Xuannan
 '''
 
@@ -38,7 +38,7 @@ class BaseModel(db.Model):
         except Exception as e:
             db.session.rollback()
             print(e)
-            current_app.logger.info(e)
+            current_app.logger.error(e)
             return False
 
     def updata(self):
@@ -48,7 +48,7 @@ class BaseModel(db.Model):
         except Exception as e:
             db.session.rollback()
             print(e)
-            current_app.logger.info(e)
+            current_app.logger.error(e)
             return False
 
     def clean(self):
@@ -62,7 +62,7 @@ class BaseModel(db.Model):
         except Exception as e:
             db.session.rollback()
             print(e)
-            current_app.logger.info(e)
+            current_app.logger.error(e)
             return False
 
     def delete(self):
@@ -76,6 +76,6 @@ class BaseModel(db.Model):
         except Exception as e:
             db.session.rollback()
             print(e)
-            current_app.logger.info(e)
+            current_app.logger.error(e)
             return False
 

@@ -49,11 +49,11 @@ class UsersResource(Resource):
             email = args_register.get('email')
             phone = args_register.get('phone')
             if get_user(username):
-                abort(400,msg='用户名已注册')
+                abort(RET.BadRequest,msg='用户名已注册')
             if get_user(phone):
-                abort(400,msg='手机号码已注册')
+                abort(RET.BadRequest,msg='手机号码已注册')
             if get_user(email):
-                abort(400,msg='邮箱已注册')
+                abort(RET.BadRequest,msg='邮箱已注册')
             user = User()
             user.username = username
             user.password = password
@@ -61,38 +61,44 @@ class UsersResource(Resource):
             user.phone = phone
             if user.add():
                 data = {
-                    'status':HTTP_CREATE_OK,
+                    'status':RET.Created,
                     'msg':'注册成功',
                     'data':user
                 }
                 return marshal(data,sing_user_fields)
-            abort(400,msg='注册失败')
+            abort(RET.BadRequest,msg='注册失败')
         # 登录
         elif action == USER_ACTION_LOGIN:
             args_login = parse_login.parse_args()
             username = args_login.get('username').lower()
             user = get_user(username) 
             if not user:
-                abort(400,msg='用户名或密码错误')
+                abort(RET.BadRequest,msg='用户名或密码错误')
             if (not user.check_pwd(password)) or user.is_del != '0':
-                abort(401,msg='用户名或密码错误')
+                abort(RET.Unauthorized,msg='用户名或密码错误')
             token = uuid.uuid4().hex
             cache.set(token,user.id,timeout=60*60*7)
             data = {
-                'status':HTTP_OK,
+                'status':RET.OK,
                 'msg':'登录成功',
                 'token':token
             }
             return data
         else:
-            abort(400,msg='参数错误，请检查后重试')
+            abort(RET.BadRequest,msg='参数错误，请检查后重试')
 
     @login_required
     def get(self):
         '''
         获取用户信息
         '''
-        return object_to_json(g.user) 
+        if g.user:
+            data = {
+                    'status':RET.OK,
+                    'data':object_to_json(g.user)
+                }
+            return data
+        abort(RET.BadRequest,msg='请勿非法操作')
 
     @login_required   
     def put(self):
@@ -107,15 +113,15 @@ class UsersResource(Resource):
             action = args.get('action').lower()
             user = g.user
             if (not user.check_pwd(password)) or user.is_del != '0':
-                abort(401,msg='用户名或密码错误')
+                abort(RET.Unauthorized,msg='用户名或密码错误')
             user.password = new_password
             if user.updata():
                 logout()
                 return  {
-                    'status':HTTP_OK,
+                    'status':RET.OK,
                     'msg':'修改成功',
                     }
-            abort(400,msg='修改密码失败')
+            abort(RET.BadRequest,msg='修改密码失败')
         # 修改用户信息
         elif action == USER_ACTION_CHANGE_INFO:
             
