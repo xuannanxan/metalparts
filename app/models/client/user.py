@@ -4,12 +4,10 @@
 @Description: 
 @Author: Xuannan
 @Date: 2019-11-25 09:14:35
-@LastEditTime: 2019-11-26 17:13:22
+@LastEditTime: 2019-11-28 12:35:12
 @LastEditors: Xuannan
 '''
-# -*- coding: utf-8 -*- 
-# Created by xuannan on 2019-01-26.
-__author__ = 'Allen xu'
+
 from app.models import BaseModel,db
 from app.models.model_constant import *
 from werkzeug.security import check_password_hash,generate_password_hash
