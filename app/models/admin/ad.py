@@ -6,7 +6,6 @@ from  app.models import db,BaseModel
 # 广告
 class Ad(BaseModel):
     __tablename__ = "ad"
-    id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100),nullable=False)
     info = db.Column(db.Text)
     url = db.Column(db.String(255))
@@ -19,12 +18,10 @@ class Ad(BaseModel):
 
 
 # 广告位
-class Adspace(BaseModel):
-    __tablename__ = "adspace"
-    id = db.Column(db.Integer, primary_key=True)
+class AdSpace(BaseModel):
+    __tablename__ = "ad_space"
     name = db.Column(db.String(100),nullable=False)
-    ename = db.Column(db.String(100))
-   
+    sort = db.Column(db.Integer, default=0)  # 排序
 
     def __repr__(self):
-        return '<Adspace %r>' % self.name
+        return '<AdSpace %r>' % self.name

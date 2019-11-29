@@ -19,7 +19,7 @@ class Operationlog(BaseModel):
     __tablename__ = "operationlog"
     admin_id = db.Column(db.Integer)
     ip = db.Column(db.String(100))
-    reason = db.Column(db.String(600))  # 操作原因
+    info = db.Column(db.String(255))  # 操作原因
 
     def __repr__(self):
         return '<Operationlog %r>' % self.id
@@ -29,6 +29,7 @@ class Userlog(BaseModel):
     __tablename__ = "userlog"
     user_id = db.Column(db.Integer)
     ip = db.Column(db.String(100))
-
+    info = db.Column(db.String(255))
+    
     def __repr__(self):
         return '<Userlog %r>' % self.id
