@@ -3,8 +3,8 @@
 @Version: 1.0
 @Autor: Allen
 @Date: 2019-11-13 17:29:28
-@LastEditors: Allen
-@LastEditTime: 2019-11-25 10:57:31
+@LastEditors: Xuannan
+@LastEditTime: 2019-11-29 20:57:34
 '''
 # -*- coding: utf-8 -*- 
 # Created by xuannan on 2019-01-26.
@@ -15,7 +15,6 @@ from  app.models import db, BaseModel
 # 页面设置，设置模板等信息
 class Template(BaseModel):
     __tablename__ = "template"
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200),nullable=False)
     nav_id = db.Column(db.Integer)  # 导航0为首页
     template = db.Column(db.String(255)) # 模板页面，如product.html,index.html
@@ -29,4 +28,4 @@ class Template(BaseModel):
     sort = db.Column(db.Integer, default=0)  # 排序
     
     def __repr__(self):
-        return '<Tag %r>' % self.name
+        return '<Template %r>' % self.name
